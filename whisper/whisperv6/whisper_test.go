@@ -80,8 +80,7 @@ func TestWhisperBasic(t *testing.T) {
 		t.Fatalf("failed w.Messages.")
 	}
 
-	var derived []byte
-	derived = pbkdf2.Key([]byte(peerID), nil, 65356, aesKeyLength, sha256.New)
+	derived := pbkdf2.Key([]byte(peerID), nil, 65356, aesKeyLength, sha256.New)
 	if !validateSymmetricKey(derived) {
 		t.Fatalf("failed validateSymmetricKey with param = %v.", derived)
 	}
@@ -473,8 +472,8 @@ func TestExpiry(t *testing.T) {
 	InitSingleTest()
 
 	w := New(&DefaultConfig)
-	w.SetMinimumPoW(0.0000001)
-	defer w.SetMinimumPoW(DefaultMinimumPoW)
+	w.SetMinimumPowTest(0.0000001)
+	defer w.SetMinimumPowTest(DefaultMinimumPoW)
 	w.Start(nil)
 	defer w.Stop()
 
@@ -530,7 +529,7 @@ func TestCustomization(t *testing.T) {
 	InitSingleTest()
 
 	w := New(&DefaultConfig)
-	defer w.SetMinimumPoW(DefaultMinimumPoW)
+	defer w.SetMinimumPowTest(DefaultMinimumPoW)
 	defer w.SetMaxMessageSize(DefaultMaxMessageSize)
 	w.Start(nil)
 	defer w.Stop()
@@ -564,7 +563,7 @@ func TestCustomization(t *testing.T) {
 		t.Fatalf("successfully sent envelope with PoW %.06f, false positive (seed %d).", env.PoW(), seed)
 	}
 
-	w.SetMinimumPoW(smallPoW / 2)
+	w.SetMinimumPowTest(smallPoW / 2)
 	err = w.Send(env)
 	if err != nil {
 		t.Fatalf("failed to send envelope with seed %d: %s.", seed, err)
@@ -626,7 +625,7 @@ func TestSymmetricSendCycle(t *testing.T) {
 	InitSingleTest()
 
 	w := New(&DefaultConfig)
-	defer w.SetMinimumPoW(DefaultMinimumPoW)
+	defer w.SetMinimumPowTest(DefaultMinimumPoW)
 	defer w.SetMaxMessageSize(DefaultMaxMessageSize)
 	w.Start(nil)
 	defer w.Stop()
@@ -715,7 +714,7 @@ func TestSymmetricSendWithoutAKey(t *testing.T) {
 	InitSingleTest()
 
 	w := New(&DefaultConfig)
-	defer w.SetMinimumPoW(DefaultMinimumPoW)
+	defer w.SetMinimumPowTest(DefaultMinimumPoW)
 	defer w.SetMaxMessageSize(DefaultMaxMessageSize)
 	w.Start(nil)
 	defer w.Stop()
@@ -783,7 +782,7 @@ func TestSymmetricSendKeyMismatch(t *testing.T) {
 	InitSingleTest()
 
 	w := New(&DefaultConfig)
-	defer w.SetMinimumPoW(DefaultMinimumPoW)
+	defer w.SetMinimumPowTest(DefaultMinimumPoW)
 	defer w.SetMaxMessageSize(DefaultMaxMessageSize)
 	w.Start(nil)
 	defer w.Stop()
