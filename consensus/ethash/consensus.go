@@ -356,6 +356,7 @@ func calcDifficultyByzantium(time uint64, parent *types.Header) *big.Int {
 	if x.Cmp(params.MinimumDifficulty) < 0 {
 		x.Set(params.MinimumDifficulty)
 	}
+/*
 	// calculate a fake block numer for the ice-age delay:
 	//   https://github.com/ethereum/EIPs/pull/669
 	//   fake_block_number = min(0, block.number - 3_000_000
@@ -374,6 +375,8 @@ func calcDifficultyByzantium(time uint64, parent *types.Header) *big.Int {
 		y.Exp(big2, y, nil)
 		x.Add(x, y)
 	}
+*/
+        //x.SetString("1", 10)
 	return x
 }
 
@@ -412,6 +415,7 @@ func calcDifficultyHomestead(time uint64, parent *types.Header) *big.Int {
 	if x.Cmp(params.MinimumDifficulty) < 0 {
 		x.Set(params.MinimumDifficulty)
 	}
+/*
 	// for the exponential factor
 	periodCount := new(big.Int).Add(parent.Number, big1)
 	periodCount.Div(periodCount, expDiffPeriod)
@@ -423,6 +427,8 @@ func calcDifficultyHomestead(time uint64, parent *types.Header) *big.Int {
 		y.Exp(big2, y, nil)
 		x.Add(x, y)
 	}
+	//x.SetString("2", 10)
+*/
 	return x
 }
 
@@ -540,7 +546,11 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 		blockReward = ByzantiumBlockReward
 	}
 	//Roy
-	blockReward.SetString("300000000000000000000", 10)
+	if header.Number.Cmp(big.NewInt(10000000))<=0{
+		blockReward.SetString("300000000000000000000", 10)
+	} else {
+		blockReward.SetString("0", 10)
+	}
 	// Accumulate the rewards for the miner and any included uncles
 	reward := new(big.Int).Set(blockReward)
 	r := new(big.Int)
