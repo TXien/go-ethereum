@@ -337,7 +337,7 @@ func calcDifficultyByzantium(time uint64, parent *types.Header) *big.Int {
 
 	// (2 if len(parent_uncles) else 1) - (block_timestamp - parent_timestamp) // 9
 	x.Sub(bigTime, bigParentTime)
-	x.Div(x, big9)
+	x.Div(x, big.NewInt(5))
 	if parent.UncleHash == types.EmptyUncleHash {
 		x.Sub(big1, x)
 	} else {
@@ -546,8 +546,16 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 		blockReward = ByzantiumBlockReward
 	}
 	//Roy
-	if header.Number.Cmp(big.NewInt(10000000))<=0{
-		blockReward.SetString("300000000000000000000", 10)
+	if header.Number.Cmp(big.NewInt(8000000))<=0{
+		blockReward.SetString("125000000000000000000", 10)
+	} else if header.Number.Cmp(big.NewInt(16000000))<=0 {
+		blockReward.SetString("100000000000000000000", 10)
+	} else if header.Number.Cmp(big.NewInt(24000000))<=0 {
+		blockReward.SetString("75000000000000000000", 10)
+	} else if header.Number.Cmp(big.NewInt(32000000))<=0 {
+		blockReward.SetString("50000000000000000000", 10)
+	} else if header.Number.Cmp(big.NewInt(40000000))<=0 {
+		blockReward.SetString("25000000000000000000", 10)
 	} else {
 		blockReward.SetString("0", 10)
 	}
