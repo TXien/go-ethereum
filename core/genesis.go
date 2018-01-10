@@ -327,7 +327,7 @@ func BabGenesisBlock() *Genesis {
 		ExtraData:  nil,
 		Mixhash:    common.HexToHash("0x00000000000000000000000000000000000000007572616c65787365646c6578"),
 		GasLimit:   6000000,
-		Difficulty: big.NewInt(53753344),
+		Difficulty: big.NewInt(353753344),
 		Alloc:      decodePrealloc(mainnetAllocData),
 	}
 }
