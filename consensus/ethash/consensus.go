@@ -547,16 +547,26 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 	}
 	//Roy
 	if header.Number.Cmp(big.NewInt(8000000))<=0{
-		blockReward.SetString("125000000000000000000", 10)
+		blockReward.SetString("60000000000000000000", 10)
 	} else if header.Number.Cmp(big.NewInt(16000000))<=0 {
-		blockReward.SetString("100000000000000000000", 10)
+		blockReward.SetString("55000000000000000000", 10)
 	} else if header.Number.Cmp(big.NewInt(24000000))<=0 {
-		blockReward.SetString("75000000000000000000", 10)
-	} else if header.Number.Cmp(big.NewInt(32000000))<=0 {
 		blockReward.SetString("50000000000000000000", 10)
+	} else if header.Number.Cmp(big.NewInt(32000000))<=0 {
+		blockReward.SetString("45000000000000000000", 10)
 	} else if header.Number.Cmp(big.NewInt(40000000))<=0 {
+		blockReward.SetString("40000000000000000000", 10)
+	} else if header.Number.Cmp(big.NewInt(48000000))<=0 {
+		blockReward.SetString("35000000000000000000", 10)
+	}else if header.Number.Cmp(big.NewInt(56000000))<=0 {
+		blockReward.SetString("30000000000000000000", 10)
+	}else if header.Number.Cmp(big.NewInt(64000000))<=0 {
 		blockReward.SetString("25000000000000000000", 10)
-	} else {
+	}else if header.Number.Cmp(big.NewInt(72000000))<=0 {
+		blockReward.SetString("20000000000000000000", 10)
+	}else if header.Number.Cmp(big.NewInt(80000000))<=0 {
+		blockReward.SetString("15000000000000000000", 10)
+	}else {
 		blockReward.SetString("0", 10)
 	}
 	// Accumulate the rewards for the miner and any included uncles
